@@ -1,0 +1,5 @@
+data/
+log/
+.idea/
+**/bin
+**/obj

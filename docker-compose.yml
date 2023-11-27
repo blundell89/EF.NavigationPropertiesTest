@@ -1,0 +1,11 @@
+version: '3'
+services:
+
+  sql:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    ports:
+      - "1434:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "dsfosdfkdfsJdsfsdf^0"
+      MSSQL_USER: "sa"
