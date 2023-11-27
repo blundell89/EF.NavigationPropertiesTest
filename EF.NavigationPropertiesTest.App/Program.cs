@@ -24,12 +24,10 @@ var provider = services.BuildServiceProvider();
 var context = provider.GetRequiredService<PolicyContext>();
 await context.Database.MigrateAsync();
 
-var policyId1 = await SeedPolicy();
-var policyId2 = await SeedPolicy();
+var createdPolicyId = await SeedPolicy();
 
-var policyIds = new[] { policyId1, policyId2 };
 var policies = await context.Policies
-    .Where(x => policyIds.Contains(x.PolicyId))
+    .Where(x => x.PolicyId == createdPolicyId)
     .Select(pol => new
     {
         Policy = pol,
@@ -38,12 +36,6 @@ var policies = await context.Policies
             .FirstOrDefault(x => x.Event == "Created")
     })
     .ToListAsync();
-
-if (policies.Count == 0)
-{
-    Console.WriteLine("No policies found");
-    return;
-}
 
 foreach (var policy in policies)
 {
